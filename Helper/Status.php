@@ -14,7 +14,7 @@ class Status
     const COMPLETED = 2;
 
     // init status title
-    private static $title = [
+    public static $title = [
         self::PLANNING => '<span>PLANNING</span>',
         self::DOING => '<span class="text-primary">DOING</span>',
         self::COMPLETED => '<span class="text-success">COMPLETED</span>'

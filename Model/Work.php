@@ -15,6 +15,17 @@ class Work
         return self::$conn->query($sql);
     }
 
+    public function insert($data)
+    {
+        $workName = $data['work_name'];
+        $startDate = $data['start_date'];
+        $endDate = $data['end_date'];
+        $status = $data['status'];
+        $sql = "INSERT INTO Work(work_name, start_date, end_date, status) VALUE ('$workName', '$startDate', '$endDate', '$status')";
+        self::$conn->query($sql);
+        header("Location: /View/Work");
+    }
+
     public function show()
     {
         //
