@@ -6,16 +6,13 @@
  * Time: 12:49 PM
  */
 
+require "../../Model/Work.php";
+
 class WorkController
 {
-    public function __construct()
-    {
-        //
-    }
-
     public function index()
     {
-        //
+        return (new Work())->all();
     }
 
     public function show()

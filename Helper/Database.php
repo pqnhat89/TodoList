@@ -20,7 +20,7 @@ class Database
     public function __construct()
     {
         // get env content
-        $env = parse_ini_file("../.env");
+        $env = parse_ini_file("../../.env");
 
         // get db settings
         $host = $env['host'];
@@ -35,8 +35,6 @@ class Database
         if (self::$conn->connect_error) {
             die("Connection failed: " . self::$conn->connect_error);
         }
-
-        echo "Connection success";
     }
 
     /**
