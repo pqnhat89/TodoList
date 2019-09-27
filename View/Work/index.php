@@ -25,17 +25,17 @@
             <?php $works = (new Work())->all() ?>
             <?php if ($works->num_rows > 0): ?>
                 <?php foreach ($works as $work): ?>
-                    <tr data-id="<?php echo $work['work_id'] ?>">
-                        <td class="work-name"><?php echo $work['work_name'] ?></td>
-                        <td><?php echo $work['start_date'] ?></td>
-                        <td><?php echo $work['end_date'] ?></td>
+                    <tr data-id="<?= $work['work_id'] ?>">
+                        <td class="work-name"><?= $work['work_name'] ?></td>
+                        <td><?= $work['start_date'] ?></td>
+                        <td><?= $work['end_date'] ?></td>
                         <td class="text-center">
-                            <strong><?php echo Status::get($work['status']) ?></strong>
+                            <strong><?= Status::get($work['status']) ?></strong>
                         </td>
                         <td>
                             <button class="btn btn-primary edit">EDIT</button>
                             <form action="/Controller/Work/Delete.php" method="POST" style="display: inline-block">
-                                <input type="hidden" name="work_id" value="<?php echo $work['work_id'] ?>">
+                                <input type="hidden" name="work_id" value="<?= $work['work_id'] ?>">
                                 <button type="submit" class="btn btn-danger delete">DELETE</button>
                             </form>
                         </td>
