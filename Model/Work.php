@@ -26,6 +26,18 @@ class Work
     }
 
     /**
+     * @param $sql
+     * @return array|bool|mysqli_result
+     */
+    private function query($sql)
+    {
+        if ($result = self::$conn->query($sql)) {
+            return $result;
+        }
+        return ["error" => self::$conn->error];
+    }
+
+    /**
      *
      */
     public function __destruct()
@@ -41,7 +53,7 @@ class Work
     public function all()
     {
         $sql = "SELECT * FROM Work WHERE is_deleted=0";
-        return self::$conn->query($sql);
+        return self::query($sql);
     }
 
     /**
@@ -50,13 +62,17 @@ class Work
      */
     public function insert($data)
     {
-        $workName = $data['work_name'];
+        $workName = htmlspecialchars($data['work_name']);
         $startDate = $data['start_date'];
         $endDate = $data['end_date'];
         $status = $data['status'];
-        $sql = "INSERT INTO Work(work_name, start_date, end_date, status) VALUE ('$workName', '$startDate', '$endDate', '$status')";
-        self::$conn->query($sql);
-        header("Location: /View/Work");
+        $sql = "INSERT INTO Work(work_name, start_date, end_date, status) VALUE (\"$workName\", \"$startDate\", \"$endDate\", \"$status\")";
+        $result = self::query($sql);
+        if ($result['error'] ?? null) {
+            header("Location: /View/Work?error=" . $result['error']);
+        } else {
+            header("Location: /View/Work?message=Insert success !!!");
+        }
     }
 
     /**
@@ -67,7 +83,7 @@ class Work
     public function get($workId)
     {
         $sql = "SELECT * FROM Work WHERE work_id=$workId LIMIT 1";
-        $result = self::$conn->query($sql);
+        $result = self::query($sql);
         foreach ($result as $r) {
             return $r;
         }
@@ -80,13 +96,17 @@ class Work
     public function update($data)
     {
         $workId = $data['work_id'];
-        $workName = $data['work_name'];
+        $workName = htmlspecialchars($data['work_name']);
         $startDate = $data['start_date'];
         $endDate = $data['end_date'];
         $status = $data['status'];
-        $sql = "UPDATE Work SET work_name='$workName', start_date='$startDate', end_date='$endDate', status='$status', updated_at=NOW() WHERE work_id=$workId";
-        self::$conn->query($sql);
-        header("Location: /View/Work");
+        $sql = "UPDATE Work SET work_name=\"$workName\", start_date=\"$startDate\", end_date=\"$endDate\", status=\"$status\", updated_at=NOW() WHERE work_id=$workId";
+        $result = self::query($sql);
+        if ($result['error'] ?? null) {
+            header("Location: /View/Work?error=" . $result['error']);
+        } else {
+            header("Location: /View/Work?message=Update success !!!");
+        }
     }
 
     /**
@@ -96,7 +116,11 @@ class Work
     public function delete($workId)
     {
         $sql = "UPDATE Work SET is_deleted=1 WHERE work_id=$workId";
-        self::$conn->query($sql);
-        header("Location: /View/Work");
+        $result = self::query($sql);
+        if ($result['error'] ?? null) {
+            header("Location: /View/Work?error=" . $result['error']);
+        } else {
+            header("Location: /View/Work?message=Delete success !!!");
+        }
     }
 }

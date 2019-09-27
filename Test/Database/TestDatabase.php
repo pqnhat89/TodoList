@@ -1,6 +1,6 @@
 <?php
 
-require "../Helper/Database.php";
+require "../../Helper/Database.php";
 
 /**
  * Created by PhpStorm.

@@ -1,5 +1,17 @@
 var modal = $('#work .modal');
 
+// handle form submit
+$('#work .modal button[type=submit]').click(function (e) {
+    e.preventDefault();
+    var startDate = $('#work .modal #start_date').val();
+    var endDate = $('#work .modal #end_date').val();
+    if (endDate < startDate) {
+        alert('End Date must be great than End Date !!!')
+    } else {
+        $(this).closest('form').submit();
+    }
+});
+
 // handle click add btn
 $('#work #add').click(function () {
     // reset form data
@@ -27,6 +39,15 @@ $('#work .edit').click(function () {
             modal.modal();
         }
     });
+});
+
+$('#work .delete').click(function (e) {
+    e.preventDefault();
+    // get work_name
+    var workName = $(this).closest('tr').find('.work-name').html().trim();
+    if (confirm("Delete " + workName + " ?")) {
+        $(this).closest('form').submit();
+    }
 });
 
 // config datepicker

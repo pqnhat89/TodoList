@@ -2,7 +2,15 @@
 <?php require '../../Helper/Status.php' ?>
 <?php require '../../Model/Work.php' ?>
     <div class="container" id="work">
-        <button id="add" class="btn btn-success">ADD</button>
+        <div class="row">
+            <div class="col-xs-8">
+                <h4><span class="label label-danger"><?= $_GET['error'] ?></span></h4>
+                <h4><span class="label label-success"><?= $_GET['message'] ?></span></h4>
+            </div>
+            <div class="col-xs-4 text-right">
+                <button id="add" class="btn btn-primary">ADD</button>
+            </div>
+        </div>
         <table class="table table-bordered table-hover">
             <thead>
             <tr>
@@ -18,7 +26,7 @@
             <?php if ($works->num_rows > 0): ?>
                 <?php foreach ($works as $work): ?>
                     <tr data-id="<?php echo $work['work_id'] ?>">
-                        <td><?php echo $work['work_name'] ?></td>
+                        <td class="work-name"><?php echo $work['work_name'] ?></td>
                         <td><?php echo $work['start_date'] ?></td>
                         <td><?php echo $work['end_date'] ?></td>
                         <td class="text-center">
@@ -88,7 +96,6 @@
                             <div class="form-group">
                                 <label for="status">Status</label>
                                 <select class="form-control" id="status" name="status" required>
-                                    <option value="">-----</option>
                                     <?php foreach (Status::$title as $status => $title): ?>
                                         <option value="<?= $status ?>"><?= $title ?></option>
                                     <?php endforeach; ?>
