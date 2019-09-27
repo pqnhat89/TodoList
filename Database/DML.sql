@@ -1,0 +1,8 @@
+TRUNCATE TABLE Work;
+
+INSERT INTO Work(work_name, start_date, end_date)
+VALUES ('Word name 1', CURRENT_DATE (), DATE_ADD(CURRENT_DATE(), INTERVAL 1 DAY)),
+       ('Word name 2', CURRENT_DATE(), DATE_ADD(CURRENT_DATE(), INTERVAL 2 DAY)),
+       ('Word name 3', CURRENT_DATE(), DATE_ADD(CURRENT_DATE(), INTERVAL 3 DAY)),
+       ('Word name 4', CURRENT_DATE(), DATE_ADD(CURRENT_DATE(), INTERVAL 4 DAY)),
+       ('Word name 5', CURRENT_DATE(), DATE_ADD(CURRENT_DATE(), INTERVAL 5 DAY));
