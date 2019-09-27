@@ -22,11 +22,14 @@
                         <td><?php echo $work['start_date'] ?></td>
                         <td><?php echo $work['end_date'] ?></td>
                         <td class="text-center">
-                            <?php echo Status::get($work['status']) ?>
+                            <strong><?php echo Status::get($work['status']) ?></strong>
                         </td>
                         <td>
                             <button class="btn btn-primary edit">EDIT</button>
-                            <button class="btn btn-danger delete">DELETE</button>
+                            <form action="/Controller/Work/Delete.php" method="POST" style="display: inline-block">
+                                <input type="hidden" name="work_id" value="<?php echo $work['work_id'] ?>">
+                                <button type="submit" class="btn btn-danger delete">DELETE</button>
+                            </form>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -45,9 +48,11 @@
                 <div class="modal-content">
                     <div class="modal-body">
                         <form method="POST" action="/Controller/Work/InsertUpdate.php">
+                            <input type="hidden" name="work_id" id="work_id">
                             <div class="form-group">
                                 <label for="work_name">Work Name</label>
-                                <input type="text" class="form-control" id="work_name" name="work_name" placeholder="Enter Work Name"
+                                <input type="text" class="form-control" id="work_name" name="work_name"
+                                       placeholder="Enter Work Name"
                                        required>
                             </div>
                             <div class="row">
@@ -56,7 +61,8 @@
                                         <label for="start_date">Start Date</label>
                                         <div class="input-group effective_calendar">
                                             <div class="input-group date" data-provide="datepicker">
-                                                <input type="text" class="form-control" id="start_date" name="start_date" required>
+                                                <input type="text" class="form-control" id="start_date"
+                                                       name="start_date" required>
                                                 <div class="input-group-addon">
                                                     <span class="glyphicon glyphicon-th"></span>
                                                 </div>
@@ -69,7 +75,8 @@
                                         <label for="end_date">End Date</label>
                                         <div class="input-group effective_calendar">
                                             <div class="input-group date" data-provide="datepicker">
-                                                <input type="text" class="form-control" id="end_date" name="end_date" required>
+                                                <input type="text" class="form-control" id="end_date" name="end_date"
+                                                       required>
                                                 <div class="input-group-addon">
                                                     <span class="glyphicon glyphicon-th"></span>
                                                 </div>

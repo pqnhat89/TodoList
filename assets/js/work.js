@@ -1,47 +1,35 @@
-var work_id;
+var modal = $('#work .modal');
 
 // handle click add btn
 $('#work #add').click(function () {
-    work_id = 0;
+    // reset form data
+    modal.find('#work_id').val(0);
     $('#work .modal form')[0].reset();
     $('#work .modal').modal();
 });
 
-// get form data
-function getData() {
-    var modal = $('#work .modal');
-    return {
-        work_name: modal.find('#work_name').val(),
-        start_date: modal.find('#start_date').val(),
-        end_date: modal.find('#end_date').val(),
-        status: modal.find('#status').val()
-    };
-}
-
-// validation
-function validation() {
-    // get form data
-    var modal = $('#work .modal');
-    var data = {
-        work_name: modal.find('#work_name'),
-        start_date: modal.find('#start_date'),
-        end_date: modal.find('#end_date'),
-        status: modal.find('#status')
-    };
-
-    var isValid = true;
-    $.each(data, function (k, v) {
-        if (v.val() == '') {
-            isValid = false;
-            v.closest('.form-group').find('.error').show();
-        } else {
-            v.closest('.form-group').find('.error').hide();
+// handle click edit btn
+$('#work .edit').click(function () {
+    // get work_id
+    var work_id = $(this).closest('tr').data('id');
+    // send ajax
+    $.ajax({
+        url: '/Controller/Work/Get.php?work_id=' + work_id,
+        success: function (res) {
+            // parse data
+            res = JSON.parse(res);
+            // set data
+            modal.find('#work_id').val(res.work_id);
+            modal.find('#work_name').val(res.work_name);
+            modal.find('#start_date').val(res.start_date);
+            modal.find('#end_date').val(res.end_date);
+            modal.find('#status').val(res.status);
+            modal.modal();
         }
     });
+});
 
-    return isValid;
-}
-
+// config datepicker
 $('.date').datepicker({
     format: 'yyyy-mm-dd',
     todayBtn: true,
