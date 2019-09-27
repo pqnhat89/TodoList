@@ -1,5 +1,4 @@
 ## TodoList
-
 1. Functions to Add, Edit, Delete Work. A work includes
 information of “Work Name”, “Starting Date”, “Ending Date”
 and “Status” (Planning, Doing, Complete)
@@ -10,6 +9,8 @@ Week, Month (can use third-party library)
 ## Environment
 Please update Database information at .env file
 
+## Database
+Please use DDL & DML demo at /Database directory
 
 ## Information
 PHP version: >= 7.0
