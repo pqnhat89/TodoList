@@ -1,3 +1,8 @@
 <?php
 require "../../Model/Work.php";
-(new Work())->delete($_POST['work_id']);
+$result = (new Work())->delete($_POST['work_id']);
+if ($result['error'] ?? null) {
+    header("Location: /View/Work?error=" . $result['error']);
+} else {
+    header("Location: /View/Work?message=Delete success !!!");
+}

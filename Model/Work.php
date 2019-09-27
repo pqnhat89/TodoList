@@ -59,6 +59,7 @@ class Work
     /**
      * add new Work data
      * @param $data
+     * @return array|bool|mysqli_result
      */
     public function insert($data)
     {
@@ -67,12 +68,7 @@ class Work
         $endDate = $data['end_date'];
         $status = $data['status'];
         $sql = "INSERT INTO Work(work_name, start_date, end_date, status) VALUE (\"$workName\", \"$startDate\", \"$endDate\", \"$status\")";
-        $result = self::query($sql);
-        if ($result['error'] ?? null) {
-            header("Location: /View/Work?error=" . $result['error']);
-        } else {
-            header("Location: /View/Work?message=Insert success !!!");
-        }
+        return self::query($sql);
     }
 
     /**
@@ -92,6 +88,7 @@ class Work
     /**
      * update Work data by work_id
      * @param $data
+     * @return array|bool|mysqli_result
      */
     public function update($data)
     {
@@ -101,26 +98,17 @@ class Work
         $endDate = $data['end_date'];
         $status = $data['status'];
         $sql = "UPDATE Work SET work_name=\"$workName\", start_date=\"$startDate\", end_date=\"$endDate\", status=\"$status\", updated_at=NOW() WHERE work_id=$workId";
-        $result = self::query($sql);
-        if ($result['error'] ?? null) {
-            header("Location: /View/Work?error=" . $result['error']);
-        } else {
-            header("Location: /View/Work?message=Update success !!!");
-        }
+        return self::query($sql);
     }
 
     /**
      * soft delete Work data by work_id
      * @param $workId
+     * @return array|bool|mysqli_result
      */
     public function delete($workId)
     {
         $sql = "UPDATE Work SET is_deleted=1 WHERE work_id=$workId";
-        $result = self::query($sql);
-        if ($result['error'] ?? null) {
-            header("Location: /View/Work?error=" . $result['error']);
-        } else {
-            header("Location: /View/Work?message=Delete success !!!");
-        }
+        return self::query($sql);
     }
 }
