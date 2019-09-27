@@ -4,8 +4,8 @@ CREATE TABLE Work
 (
   work_id    INT(10) AUTO_INCREMENT PRIMARY KEY,
   work_name  varchar(256)                         NOT NULL,
-  start_date TIMESTAMP                            NOT NULL,
-  end_date   TIMESTAMP                            NOT NULL,
+  start_date DATE                                 NOT NULL,
+  end_date   DATE                                 NOT NULL,
   status     TINYINT(1) default 0                 NOT NULL,
   created_at TIMESTAMP  DEFAULT CURRENT_TIMESTAMP NOT NULL,
   updated_at TIMESTAMP  DEFAULT CURRENT_TIMESTAMP NOT NULL,
